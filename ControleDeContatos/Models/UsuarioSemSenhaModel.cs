@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeContatos.Models
 {
-    public class UsuarioModel
+    public class UsuarioSemSenhaModel
     {
         public int Id { get; set; }
 
@@ -17,18 +17,7 @@ namespace ControleDeContatos.Models
         [Required(ErrorMessage = "Digite o e-mail do usuário!")]
         [EmailAddress(ErrorMessage = "O e-mail informado é inválido!")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Digite a senha do usuário!")]
-        public string Senha { get; set; }
-
         [Required(ErrorMessage = "Selecione o perfil do usuário!")]
         public PerfilEnum? Perfil { get; set; }
-        public DateTime DataCadastro { get; set; }
-        public DateTime? DataAtualizacao { get; set; }
-
-        public bool ValidaSenha(string senha)
-        {
-            return Senha == senha;
-        }
     }
 }

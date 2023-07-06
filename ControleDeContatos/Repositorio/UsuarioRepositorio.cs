@@ -38,7 +38,7 @@ namespace ControleDeContatos.Repositorio
         {
             var usuarioDB = ListarPorId(usuario.Id);
 
-            if (usuarioDB == null) throw new System.Exception("Houve um erro na atualização do Usuário!");
+            if (usuarioDB == null) throw new Exception("Houve um erro na atualização do Usuário!");
 
             usuarioDB.Nome = usuario.Nome;
             usuarioDB.Login = usuario.Login;
@@ -56,12 +56,17 @@ namespace ControleDeContatos.Repositorio
         {
             var usuarioDB = ListarPorId(id);
 
-            if (usuarioDB == null) throw new System.Exception("Houve um erro na exclusão do Usuário!");
+            if (usuarioDB == null) throw new Exception("Houve um erro na exclusão do Usuário!");
 
             _context.Usuarios.Remove(usuarioDB);
             _context.SaveChanges();
 
             return true;
+        }
+
+        public UsuarioModel BuscarPorLogin(string login)
+        {
+            return _context.Usuarios.FirstOrDefault(x => x.Login.ToLower() == login.ToLower());
         }
     }
 }

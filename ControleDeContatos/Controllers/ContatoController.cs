@@ -1,6 +1,7 @@
 ﻿using ControleDeContatos.Models;
 using ControleDeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace ControleDeContatos.Controllers
 {
@@ -52,7 +53,7 @@ namespace ControleDeContatos.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (System.Exception error)
+            catch (Exception error)
             {
                 TempData["MensagemErro"] = $"Erro ao apagar contato, tente novamente! Detalhe do erro: {error.Message}";
                 return RedirectToAction(nameof(Index));
@@ -73,7 +74,7 @@ namespace ControleDeContatos.Controllers
 
                 return View(contato);
             }
-            catch (System.Exception error)
+            catch (Exception error)
             {
                 TempData["MensagemErro"] = $"Erro ao cadastrar contato, tente novamente! Detalhe do erro: {error.Message}";
                 return RedirectToAction(nameof(Index));
@@ -94,7 +95,7 @@ namespace ControleDeContatos.Controllers
 
                 return View(contato);
             }
-            catch (System.Exception error)
+            catch (Exception error)
             {
                 TempData["MensagemErro"] = $"Erro ao editar contato, tente novamente! Detalhe do erro: {error.Message}";
                 return RedirectToAction(nameof(Index));

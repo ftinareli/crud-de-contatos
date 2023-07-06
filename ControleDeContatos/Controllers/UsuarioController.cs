@@ -27,6 +27,42 @@ namespace ControleDeContatos.Controllers
             return View();
         }
 
+        public IActionResult Editar(int id)
+        {
+            var usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
+
+        public IActionResult ApagarConfirmacao(int id)
+        {
+            var usuario = _usuarioRepositorio.ListarPorId(id);
+            return View(usuario);
+        }
+
+        public IActionResult Apagar(int id)
+        {
+            try
+            {
+                var apagado = _usuarioRepositorio.Apagar(id);
+
+                if (apagado)
+                {
+                    TempData["MensagemSucesso"] = "Usuário apagado com sucesso!";
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Erro ao apagar usuário!";
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception error)
+            {
+                TempData["MensagemErro"] = $"Erro ao apagar usuário, tente novamente! Detalhe do erro: {error.Message}";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
         [HttpPost]
         public IActionResult Criar(UsuarioModel usuario)
         {
@@ -49,13 +85,24 @@ namespace ControleDeContatos.Controllers
         }
 
         [HttpPost]
-        public IActionResult Editar(UsuarioModel usuario)
+        public IActionResult Editar(UsuarioSemSenhaModel usuarioSemSenha)
         {
             try
             {
+                UsuarioModel usuario = null;
+
                 if (ModelState.IsValid)
                 {
-                    _usuarioRepositorio.Atualizar(usuario);
+                    usuario = new UsuarioModel()
+                    {
+                        Id = usuarioSemSenha.Id,
+                        Nome = usuarioSemSenha.Nome,
+                        Login = usuarioSemSenha.Login,
+                        Email = usuarioSemSenha.Email,
+                        Perfil = usuarioSemSenha.Perfil
+                    };
+
+                    usuario = _usuarioRepositorio.Atualizar(usuario);
                     TempData["MensagemSucesso"] = "Usuário editado com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }

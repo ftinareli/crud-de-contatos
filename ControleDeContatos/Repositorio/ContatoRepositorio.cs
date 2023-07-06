@@ -1,5 +1,6 @@
 ﻿using ControleDeContatos.Data;
 using ControleDeContatos.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,7 +36,7 @@ namespace ControleDeContatos.Repositorio
         {
             var contatoDB = ListarPorId(contato.Id);
 
-            if (contatoDB == null) throw new System.Exception("Houve um erro na atualização do Contato!");
+            if (contatoDB == null) throw new Exception("Houve um erro na atualização do Contato!");
 
             contatoDB.Nome = contato.Nome;
             contatoDB.Email = contato.Email;
@@ -51,7 +52,7 @@ namespace ControleDeContatos.Repositorio
         {
             var contatoDB = ListarPorId(id);
 
-            if (contatoDB == null) throw new System.Exception("Houve um erro na exclusão do Contato!");
+            if (contatoDB == null) throw new Exception("Houve um erro na exclusão do Contato!");
 
             _context.Contatos.Remove(contatoDB);
             _context.SaveChanges();
